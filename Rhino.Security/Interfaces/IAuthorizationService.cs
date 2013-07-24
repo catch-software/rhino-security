@@ -69,6 +69,17 @@ namespace Rhino.Security.Interfaces
 		/// </returns>
 		bool IsAllowed(IUser user, string operation);
 
+	    /// <summary>
+	    /// Determines whether the specified user is granted the operation for 
+	    /// all entities (rather then a set of specific entities).
+	    /// </summary>
+	    /// <param name="user">The user.</param>
+	    /// <param name="operation">The operation.</param>
+	    /// <returns>
+	    /// 	<c>true</c> if the specified user is allowed; otherwise, <c>false</c>.
+	    /// </returns>
+	    bool IsAllowedOnAllEntities(IUser user, string operation);
+
 		/// <summary>
 		/// 	Gets the authorization information for the specified user and operation,
 		/// 	allows to easily understand why a given operation was granted / denied.

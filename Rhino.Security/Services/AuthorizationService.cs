@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.SqlCommand;
@@ -117,6 +118,27 @@ namespace Rhino.Security.Services
 				return false;
 			return permissions[0].Allow;
 		}
+
+        /// <summary>
+        /// Determines whether the specified user is granted the operation for 
+        /// all entities (rather then a set of specific entities).
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="operation">The operation.</param>
+        /// <returns>
+        /// 	<c>true</c> if the specified user is allowed; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsAllowedOnAllEntities(IUser user, string operation)
+        {
+            Permission[] permissions = permissionsService.GetPermissionsFor(user, operation)
+              .Where(perm => perm.EntitiesGroup == null && perm.EntitySecurityKey == null && perm.EntityTypeName == null).
+              ToArray();
+
+            if (permissions.Length == 0)
+                return false;
+
+            return permissions[0].Allow;
+        }
 
 		/// <summary>
 		/// Gets the authorization information for the specified user and operation,
