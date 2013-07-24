@@ -26,6 +26,14 @@
 							not-null="true"
 							unique="true"/>
     </property>
+    <property name="Comment"
+          access="property"
+          type="String">
+      <column name="Comment"
+							length="255"
+							not-null="false"
+							unique="false"/>
+    </property>
 		<many-to-one name="Parent"
 								 access="property"
 								 class="UsersGroup"
