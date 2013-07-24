@@ -192,6 +192,24 @@ namespace Rhino.Security.Services
 			return FindResults(criteria);
 		}
 
+        /// <summary>
+        /// Gets the permissions for the specified user group
+        /// </summary>
+        /// <param name="usersGroup">The group.</param>
+        /// <param name="operationName">The operation name.</param>
+        /// <returns></returns>
+        public Permission[] GetPermissionsFor(UsersGroup usersGroup, string operationName)
+        {
+            string[] operationNames = Strings.GetHierarchicalOperationNames(operationName);
+
+            DetachedCriteria criteria = DetachedCriteria.For<Permission>()
+              .Add(Restrictions.Eq("UsersGroup", usersGroup))
+              .CreateAlias("Operation", "op")
+              .Add(Restrictions.In("op.Name", operationNames));
+
+            return FindResults(criteria);
+        }
+
 		#endregion
 
 		private Permission[] FindResults(DetachedCriteria criteria)
