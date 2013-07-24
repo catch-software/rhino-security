@@ -50,5 +50,10 @@ namespace Rhino.Security.Model
 	    /// </summary>
 	    /// <value>All children.</value>
 	    public virtual ICollection<UsersGroup> AllParents { get; set; }
+
+        /// <summary>
+        /// Comment for users group
+        /// </summary>
+        public virtual string Comment { get; set; }
 	}
 }
