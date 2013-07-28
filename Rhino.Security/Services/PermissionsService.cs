@@ -112,6 +112,39 @@ namespace Rhino.Security.Services
         }
 
         /// <summary>
+        /// Get all permissions for the specified operation and user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="operationName"></param>
+        /// <returns></returns>
+        public Permission[] GetPermissionsFor(IUser user, string operationName)
+        {
+            return this.GetPermissionsFor(user, new string[] { operationName });
+        }
+
+        /// <summary>
+        /// Get all permissions for the specified operations and user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="operationNames"></param>
+        /// <returns></returns>
+        public Permission[] GetPermissionsFor(IUser user, string[] operationNames)
+        {
+            if (user == null) throw new ArgumentNullException("user");
+            if (operationNames == null) throw new ArgumentNullException("operationNames");
+
+            string[] allOperationNames = Strings.GetHierarchicalOperationNames(operationNames);
+
+            DetachedCriteria criteria = DetachedCriteria.For<Permission>()
+             .Add(Restrictions.Eq("User", user) || Subqueries.PropertyIn("UsersGroup.Id",
+                                              SecurityCriterions.AllGroups(user).SetProjection(Projections.Id())))
+                .CreateAlias("Operation", "op")
+                .Add(Restrictions.In("op.Name", allOperationNames));
+
+            return FindResults(criteria);
+        }
+
+        /// <summary>
 		/// Gets the permissions for the specified user and entity
 		/// </summary>
 		/// <typeparam name="TEntity"></typeparam>
@@ -124,10 +157,10 @@ namespace Rhino.Security.Services
 			EntitiesGroup[] entitiesGroups = authorizationRepository.GetAssociatedEntitiesGroupsFor(entity);
 
 			DetachedCriteria criteria = DetachedCriteria.For<Permission>()
-				.Add(Expression.Eq("User", user)
+                .Add(Restrictions.Eq("User", user)
 				     || Subqueries.PropertyIn("UsersGroup.Id",
 				                              SecurityCriterions.AllGroups(user).SetProjection(Projections.Id())))
-				.Add(Expression.Eq("EntitySecurityKey", key) || Expression.In("EntitiesGroup", entitiesGroups));
+                .Add(Restrictions.Eq("EntitySecurityKey", key) || Restrictions.In("EntitiesGroup", entitiesGroups));
 
 			return FindResults(criteria);
 		}
