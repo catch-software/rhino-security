@@ -52,7 +52,7 @@
 		</set>
     <set name="AllChildren"
          access="property"
-         table="EntityGroupsHierarchy"
+         table="EntGroupsHierarchy"
          lazy="true"
          inverse="true">
       <cache usage="read-write"
@@ -63,7 +63,7 @@
     </set>
     <set name="AllParents"
          access="property"
-         table="EntityGroupsHierarchy"
+         table="EntGroupsHierarchy"
          lazy="true">
       <cache usage="read-write"
              region="rhino-security"/>
