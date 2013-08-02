@@ -21,7 +21,7 @@
     <property name="Name"
 							access="property"
 							type="String">
-      <column name="Name"
+      <column name="`Name`"
 							length="255"
 							not-null="true"
 							unique="true"/>
@@ -29,7 +29,7 @@
     <property name="Comment"
           access="property"
           type="String">
-      <column name="Comment"
+      <column name="`Comment`"
 							length="255"
 							not-null="false"
 							unique="false"/>

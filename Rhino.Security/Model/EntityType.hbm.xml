@@ -22,7 +22,7 @@
 							access="property"
 							type="String"
 							update="false">
-			<column name="Name"
+			<column name="`Name`"
 							length="255"
 							not-null="true"
 							unique="true"/>

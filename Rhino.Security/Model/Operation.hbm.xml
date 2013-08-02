@@ -22,7 +22,7 @@
 							access="property"
 							type="String"
 							update="false">
-			<column name="Name"
+			<column name="`Name`"
 							length="255"
 							not-null="true"
 							unique="true"/>
@@ -30,7 +30,7 @@
 		<property name="Comment"
 							access="property"
 							type="String">
-			<column name="Comment"
+			<column name="`Comment`"
 							length="255"/>
 		</property>
 		<many-to-one name="Parent"
