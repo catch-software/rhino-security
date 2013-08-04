@@ -32,7 +32,7 @@
 		<property name="Level"
 							access="property"
 							type="Int32">
-			<column name="Level"
+			<column name="`Level`"
 							not-null="true"/>
 		</property>
 		<property name="EntityTypeName"
@@ -43,7 +43,7 @@
 		<many-to-one name="Operation"
 								 access="property"
 								 class="Operation"
-								 column="Operation"
+								 column="`Operation`"
 								 not-null="true" />
 		<many-to-one name="User"
 								 access="property"
