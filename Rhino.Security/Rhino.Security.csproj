@@ -171,7 +171,9 @@
     <EmbeddedResource Include="Model\Permission.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Model\UsersGroup.hbm.xml" />
+    <EmbeddedResource Include="Model\UsersGroup.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Impl\JetBrains.Annotations.cs" />

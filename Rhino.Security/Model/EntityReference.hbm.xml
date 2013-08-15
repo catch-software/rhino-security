@@ -28,7 +28,7 @@
 		<many-to-one name="Type"
 								 access="property"
 								 class="EntityType"
-								 column="Type"
+								 column="`Type`"
 								 not-null="true" />
 	</class>
 </hibernate-mapping>
