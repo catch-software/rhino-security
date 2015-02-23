@@ -439,22 +439,21 @@ namespace Rhino.Security.Services
 		/// Creates the operation with the given name
 		/// </summary>
 		/// <param name="operationName">Name of the operation.</param>
+		/// <param name="sortOrder">Position number in permissions tree</param>
 		/// <returns></returns>
-		public virtual Operation CreateOperation(string operationName)
+		public virtual Operation CreateOperation(string operationName, int sortOrder = 0)
 		{
 			Guard.Against<ArgumentException>(string.IsNullOrEmpty(operationName), "operationName must have a value");
 			Guard.Against<ArgumentException>(operationName[0] != '/', "Operation names must start with '/'");
 
-			Operation op = new Operation {Name = operationName};
+			Operation op = new Operation {Name = operationName, SortOrder = sortOrder};
 
 			string parentOperationName = Strings.GetParentOperationName(operationName);
 			if (parentOperationName != string.Empty) //we haven't got to the root
 			{
-				Operation parentOperation = GetOperationByName(parentOperationName);
-				if (parentOperation == null)
-					parentOperation = CreateOperation(parentOperationName);
+				Operation parentOperation = GetOperationByName(parentOperationName) ?? CreateOperation(parentOperationName);
 
-				op.Parent = parentOperation;
+			    op.Parent = parentOperation;
 				parentOperation.Children.Add(op);
 			}
 

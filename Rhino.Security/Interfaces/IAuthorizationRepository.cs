@@ -82,8 +82,9 @@ namespace Rhino.Security.Interfaces
 		/// Creates the operation with the given name
 		/// </summary>
 		/// <param name="operationName">Name of the operation.</param>
+        /// <param name="sortOrder">Position number in permissions tree</param>
 		/// <returns></returns>
-		Operation CreateOperation(string operationName);
+		Operation CreateOperation(string operationName, int sortOrder=0);
 
 		/// <summary>
 		/// Gets the operation by the specified name
