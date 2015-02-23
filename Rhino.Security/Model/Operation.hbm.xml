@@ -33,6 +33,18 @@
 			<column name="`Comment`"
 							length="255"/>
 		</property>
+        <property name="SortOrder"
+							access="property"
+							type="Int32">
+            <column name="`SortOrder`"/>
+        </property>
+		<property name="DisplayName"
+							access="property"
+							type="String">
+			<column name="`DisplayName`"
+							length="255"/>
+
+        </property>
 		<many-to-one name="Parent"
 								 access="property"
 								 class="Operation"

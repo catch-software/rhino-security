@@ -32,5 +32,17 @@ namespace Rhino.Security.Model
 	    /// </summary>
 	    /// <value>The children.</value>
 	    public virtual ICollection<Operation> Children { get; set; }
+
+        /// <summary>
+        /// Sort order of the node in the permissions tree
+        /// </summary>
+        /// <value>The sort order.</value>
+	    public virtual int SortOrder { get; set; }
+
+        /// <summary>
+        /// Display name of the permission
+        /// </summary>
+        /// <value>The display name.</value>
+        public virtual string DisplayName { get; set; }
 	}
 }
