@@ -36,12 +36,12 @@
         <property name="SortOrder"
 							access="property"
 							type="Int32">
-            <column name="`SortOrder`"/>
+            <column name="SortOrder"/>
         </property>
 		<property name="DisplayName"
 							access="property"
 							type="String">
-			<column name="`DisplayName`"
+			<column name="DisplayName"
 							length="255"/>
 
         </property>
