@@ -194,7 +194,7 @@ namespace Rhino.Security.Services
         public Permission[] GetPermissionsFor<TEntity>(IUser user, TEntity entity, string[] operationNames) where TEntity : class
         {
             Guid key = Security.ExtractKey(entity);
-            string[] allOperationNames = Strings.GetHierarchicalOperationNames(operationNames);
+            //string[] allOperationNames = Strings.GetHierarchicalOperationNames(operationNames);
             EntitiesGroup[] entitiesGroups = authorizationRepository.GetAssociatedEntitiesGroupsFor(entity);		
 
             AbstractCriterion onCriteria =
@@ -206,7 +206,7 @@ namespace Rhino.Security.Services
                                               SecurityCriterions.AllGroups(user).SetProjection(Projections.Id())))
                 .Add(onCriteria)
                 .CreateAlias("Operation", "op")
-                .Add(Restrictions.In("op.Name", allOperationNames));
+                .Add(Restrictions.In("op.Name", operationNames));
 
             return FindResults(criteria);
         }
