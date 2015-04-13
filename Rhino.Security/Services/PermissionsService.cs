@@ -70,7 +70,7 @@ namespace Rhino.Security.Services
             if (operationNames == null)
                 throw new ArgumentNullException("operationNames");
 
-            string[] allOperationNames = Strings.GetHierarchicalOperationNames(operationNames);
+            //string[] allOperationNames = Strings.GetHierarchicalOperationNames(operationNames);
             DetachedCriteria criteria = DetachedCriteria.For<Permission>()
                 .Add(UserRestriction(user)
                      || Subqueries.PropertyIn("UsersGroup.Id",
@@ -78,7 +78,7 @@ namespace Rhino.Security.Services
                 .Add(Restrictions.IsNull("EntitiesGroup"))
                 .Add(Restrictions.IsNull("EntitySecurityKey"))
                 .CreateAlias("Operation", "op")
-                .Add(Restrictions.In("op.Name", allOperationNames));
+                .Add(Restrictions.In("op.Name", operationNames));
 
             return FindResults(criteria);
         }
@@ -108,10 +108,10 @@ namespace Rhino.Security.Services
             if (operationNames == null)
                 throw new ArgumentNullException("operationNames");
 
-            string[] allOperationNames = Strings.GetHierarchicalOperationNames(operationNames);
+           // string[] allOperationNames = Strings.GetHierarchicalOperationNames(operationNames);
             DetachedCriteria criteria = DetachedCriteria.For<Permission>()
                 .CreateAlias("Operation", "op")
-                .Add(Restrictions.In("op.Name", allOperationNames));
+                .Add(Restrictions.In("op.Name", operationNames));
 
             return this.FindResults(criteria);
         }
@@ -138,13 +138,13 @@ namespace Rhino.Security.Services
             if (user == null) throw new ArgumentNullException("user");
             if (operationNames == null) throw new ArgumentNullException("operationNames");
 
-            string[] allOperationNames = Strings.GetHierarchicalOperationNames(operationNames);
+          //  string[] allOperationNames = Strings.GetHierarchicalOperationNames(operationNames);
 
             DetachedCriteria criteria = DetachedCriteria.For<Permission>()
              .Add(UserRestriction(user) || Subqueries.PropertyIn("UsersGroup.Id",
                                               SecurityCriterions.AllGroups(user).SetProjection(Projections.Id())))
                 .CreateAlias("Operation", "op")
-                .Add(Restrictions.In("op.Name", allOperationNames));
+                .Add(Restrictions.In("op.Name", operationNames));
 
             return FindResults(criteria);
         }
